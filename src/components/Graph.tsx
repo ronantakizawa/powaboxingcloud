@@ -32,10 +32,7 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
   return (
     <div className="chart-container space-y-4 mb-5">
       <div className="flex flex-col items-center justify-center">
-        <div className="flex items-center space-x-4 mb-5">
-          <h3 className="text-lg font-bold text-white mb">Zoom</h3>
-        </div>
-        <h2 className="text-lg font-bold text-white mb-2 text-center">Average Speed </h2>
+        <h2 className="text-lg font-bold text-white mb-2 text-center">Average Speed from Workouts </h2>
         <div className="flex items-center space-x-4 mb-5">
           <h3 className="text-lg font-bold text-white mb">Zoom</h3>
           <input 
@@ -48,6 +45,7 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
           />
         </div>
         <div style={{ width: '150%', overflowX: 'auto' }}>
+          <div className={'flex justify-center'}>
         <LineChart width={300*graphResizeIndex1} height={300} data={data}>
           <XAxis dataKey="timestamp" interval="preserveStartEnd" />
           <YAxis label={{ value: 'Speed (km/h)', angle: -90, position: 'insideLeft' }} dataKey="speed" />
@@ -55,13 +53,14 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
           <Line type="monotone" dataKey="speed" stroke="#FFA500" />
         </LineChart>
         </div>
+        </div>
         <div className="text-center mt-2">
             <span className="text-orange-400">Scroll to see data →</span>
           </div>
       </div>
 
       <div className="flex flex-col items-center justify-center">
-        <h2 className="text-lg font-bold text-white mb-2 text-center"> Average Acceleration </h2>
+        <h2 className="text-lg font-bold text-white mb-2 text-center"> Average Acceleration from Workouts </h2>
         <div className="flex items-center space-x-4 mb-5">
           <h3 className="text-lg font-bold text-white mb">Zoom</h3>
           <input 
@@ -74,6 +73,7 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
           />
         </div>
         <div style={{ width: '150%', overflowX: 'auto' }}>
+        <div className={'flex justify-center'}>
         <LineChart width={300*graphResizeIndex2} height={300} data={data}>
           <XAxis dataKey="timestamp"/>
           <YAxis label={{ value: 'Acceleration (Gs)', angle: -90, position: 'insideLeft' }} dataKey="acceleration"/>
@@ -81,13 +81,14 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
           <Line type="monotone" dataKey="acceleration" stroke="#FFA500" />
         </LineChart>
         </div>
+        </div>
         <div className="text-center mt-2">
             <span className="text-orange-400">Scroll to see data →</span>
           </div>
       </div>
 
       <div className="flex flex-col items-center justify-center">
-        <h2 className="text-lg font-bold text-white mb-2 text-center">Average Force</h2>
+        <h2 className="text-lg font-bold text-white mb-2 text-center">Average Force from Workouts</h2>
         <div className="flex items-center space-x-4 mb-5">
           <h3 className="text-lg font-bold text-white mb">Zoom</h3>
           <input 
@@ -100,6 +101,7 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
           />
         </div>
         <div style={{ width: '150%', overflowX: 'scroll' }}>
+        <div className={'flex justify-center'}>
         <LineChart width={300*graphResizeIndex3} height={300} data={data}>
           <XAxis dataKey="timestamp" />
           <YAxis label={{ value: 'Force (Newtons)', angle: -90, position: 'insideLeft' }} dataKey="force"/>
@@ -107,10 +109,11 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
           <Line type="monotone" dataKey="force" stroke="#FFA500" />
         </LineChart>
         </div>
-      </div>
-      <div className="text-center mt-2">
+        <div className="text-center mt-2">
             <span className="text-orange-400">Scroll to see data →</span>
           </div>
+        </div>
+      </div>
     </div>
   );
 };

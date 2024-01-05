@@ -59,7 +59,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ workouts }) => {
 
 
   return (
-    <div className="p-4 max-w-lg mx-auto bg-black text-white">
+    <div className="p-4  mx-auto bg-black text-white">
       { 
         <div>
           {stats && (

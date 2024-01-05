@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getStorage, ref, getBlob, listAll } from 'firebase/storage';
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged , User as FirebaseUser} from 'firebase/auth';
 import firebaseConfig from "../firebase";
 import FileUpload from './FileUpload';
 import { JsonData } from './types';
-import firebase from 'firebase/compat/app';
 
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
@@ -14,7 +13,7 @@ const auth = getAuth(app);
 
 const Login: React.FC = () => {
   const [workouts, setWorkouts] = useState<JsonData[]>([]);
-  const [user, setUser] = useState<firebase.User | null>(null); // Specify the type for user state
+  const [user, setUser] = useState<FirebaseUser | null>(null); // Specify the type for user state
 
   const googleSignIn = async () => {
     try {

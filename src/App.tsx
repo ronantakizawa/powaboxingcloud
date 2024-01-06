@@ -1,17 +1,53 @@
-import viteLogo from './assets/powaboxing.svg';
-import Login from './Login'; // Make sure the path to vite.svg is correct
+// App.tsx
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './Login';
+import Home from './Home';
+import { User } from 'firebase/auth';
+import { getStorage, ref, getBlob, listAll } from 'firebase/storage';
+import { initializeApp } from 'firebase/app';
+import firebaseConfig from '../firebase';
+import { JsonData } from './types';
 
 function App() {
+  const app = initializeApp(firebaseConfig);
+  const [user, setUser] = useState<User | null>(null);
+  const [workouts, setWorkouts] = useState<JsonData[]>([]);
+
+  useEffect(() => {
+    if (user) {
+      fetchWorkoutData();
+    }
+  }, [user]);
+
+  const fetchWorkoutData = async () => {
+    if (!user) return;
+
+    const storage = getStorage(app);
+    const filesRef = ref(storage, `punches/${user.uid}`);
+    try {
+      const fileList = await listAll(filesRef);
+      const filePromises = fileList.items.map(async (fileRef) => {
+        const blob = await getBlob(fileRef);
+        return new Response(blob).json();
+      });
+
+      const filesData = await Promise.all(filePromises);
+      setWorkouts(filesData);
+    } catch (error) {
+      console.error("Failed to fetch workout data", error);
+    }
+  };
+
   return (
-    <div className=" bg-black  flex flex-col items-center pt-8 text-white">
-      <div className="flex items-center justify-center">
-        <h1 className="text-3xl font-bold mb-6 text-center">POWA Boxing Data Analysis</h1>
-        <img src={viteLogo} alt="Vite logo" className="mr-2 w-16 mb-5" /> 
+    <Router>
+      <div className=" bg-black  flex flex-col items-center pt-8 text-white">
+        <Routes>
+        <Route path="/" element={  <div className="animate-fade-in"><Login onUserLogin={setUser} /> </div>} />
+        <Route path="/home" element={ user ? <div className="animate-fade-in"><Home workouts={workouts}  /> </div> :<Navigate to="/" /> } />
+        </Routes>
       </div>
-      <div className="text-center mb-6">
-        <Login />
-      </div>
-    </div>
+    </Router>
   );
 }
 

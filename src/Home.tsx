@@ -5,13 +5,28 @@ import StatisticBox from './components/StatisticBox';
 import Graph from './components/Graph';
 import Combos from './components/Combos';
 import { Punch,FileUploadProps } from './types';
+import powaLogo from './assets/powaboxing.svg';
+import { getAuth, signOut } from '@firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 
 
-const FileUpload: React.FC<FileUploadProps> = ({ workouts }) => {
+const Home: React.FC<FileUploadProps> = ({ workouts }) => {
   const [stats, setStats] = useState<Statistics | null>(null);
   const [graph, setGraph] = useState<Array<{ speed: number, force: number, acceleration: number, timestamp: string, hand:number | undefined, fistType:string }>>([]);
   const [combos,setCombos] = useState<ComboItem[][] | null>(null);
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    const auth = getAuth();
+    try {
+      await signOut(auth);
+      console.log('User signed out successfully');
+      navigate('/');
+    } catch (error) {
+      console.error('Error signing out', error);
+    }
+  };
 
   useEffect(() => {
     if (workouts && workouts.length > 0) {
@@ -59,9 +74,19 @@ const FileUpload: React.FC<FileUploadProps> = ({ workouts }) => {
 
 
   return (
-    <div className="p-4  mx-auto bg-black text-white">
+    <div className="p-4 mx-auto bg-black text-white">
+      <div className="flex items-center justify-center">
+          <h1 className="text-3xl font-bold mb-6 text-center">POWA Analytics</h1>
+          <img src={powaLogo} alt="POWA logo" className="mr-2 w-16 mb-5" /> 
+        </div>
+        <button
+        onClick={handleSignOut}
+        className="absolute top-4 right-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition ease-in duration-200"
+      >
+        Sign Out
+      </button>
       { 
-        <div>
+        <div className='bg-black'>
           {stats && (
             <>
               <StatisticBox stats={{
@@ -72,7 +97,9 @@ const FileUpload: React.FC<FileUploadProps> = ({ workouts }) => {
                 modeHand: stats.modeHand,
                 modePunchType: stats.modePunchType
               }} />
+              <div className="max-w-lg ml-80">
               <Graph data={data} />
+              </div>
             </>
           )}
         </div>
@@ -81,4 +108,4 @@ const FileUpload: React.FC<FileUploadProps> = ({ workouts }) => {
   );
 };
 
-export default FileUpload;
+export default Home;

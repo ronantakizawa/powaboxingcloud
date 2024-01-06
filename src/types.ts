@@ -1,3 +1,5 @@
+import { User } from "@firebase/auth";
+
 export interface Punch {
     id: string;
     timestamp: number;
@@ -77,3 +79,7 @@ export interface FileUploadProps {
   hand: number;
   timestamp: string;
 };
+
+export interface LoginProps {
+  onUserLogin: (user: User) => void;
+}

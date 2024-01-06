@@ -30,7 +30,7 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
 };
   
   return (
-    <div className="chart-container space-y-4 mb-5">
+    <div className="chart-container space-y-4 mb-5 bg-black">
       <div className="flex flex-col items-center justify-center">
         <h2 className="text-lg font-bold text-white mb-2 text-center">Average Speed from Workouts </h2>
         <div className="flex items-center space-x-4 mb-5">
@@ -44,15 +44,13 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
             className="slider" 
           />
         </div>
-        <div style={{ width: '150%', overflowX: 'auto' }}>
-          <div className={'flex justify-center'}>
-        <LineChart width={300*graphResizeIndex1} height={300} data={data}>
+        <div className="w-[150%] overflow-x-auto">
+        <LineChart width={300*graphResizeIndex1} height={300} data={data} className='ml-16'>
           <XAxis dataKey="timestamp" interval="preserveStartEnd" />
           <YAxis label={{ value: 'Speed (km/h)', angle: -90, position: 'insideLeft' }} dataKey="speed" />
           <Tooltip content={<CustomTooltip active={undefined} payload={undefined} label={undefined} />} />
           <Line type="monotone" dataKey="speed" stroke="#FFA500" />
         </LineChart>
-        </div>
         </div>
         <div className="text-center mt-2">
             <span className="text-orange-400">Scroll to see data →</span>
@@ -72,15 +70,13 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
             className="slider" 
           />
         </div>
-        <div style={{ width: '150%', overflowX: 'auto' }}>
-        <div className={'flex justify-center'}>
-        <LineChart width={300*graphResizeIndex2} height={300} data={data}>
+        <div className="w-[150%] overflow-x-auto">
+        <LineChart width={graphResizeIndex2*300} height={300} data={data} className='ml-16'>
           <XAxis dataKey="timestamp"/>
           <YAxis label={{ value: 'Acceleration (Gs)', angle: -90, position: 'insideLeft' }} dataKey="acceleration"/>
           <Tooltip content={<CustomTooltip active={undefined} payload={undefined} label={undefined} />} />
           <Line type="monotone" dataKey="acceleration" stroke="#FFA500" />
         </LineChart>
-        </div>
         </div>
         <div className="text-center mt-2">
             <span className="text-orange-400">Scroll to see data →</span>
@@ -100,9 +96,8 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
             className="slider" 
           />
         </div>
-        <div style={{ width: '150%', overflowX: 'scroll' }}>
-        <div className={'flex justify-center'}>
-        <LineChart width={300*graphResizeIndex3} height={300} data={data}>
+        <div className="w-[150%] overflow-x-auto">
+        <LineChart width={graphResizeIndex3*300} height={300} data={data} className='ml-16'>
           <XAxis dataKey="timestamp" />
           <YAxis label={{ value: 'Force (Newtons)', angle: -90, position: 'insideLeft' }} dataKey="force"/>
           <Tooltip content={<CustomTooltip active={undefined} payload={undefined} label={undefined} />} />
@@ -112,7 +107,6 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
         <div className="text-center mt-2">
             <span className="text-orange-400">Scroll to see data →</span>
           </div>
-        </div>
       </div>
     </div>
   );

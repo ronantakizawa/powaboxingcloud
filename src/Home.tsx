@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { calculateStatistics, calculateAggregateStatistics, getPunchData, getCombos } from './datahandler';
-import { Statistics, JsonData, ComboItem } from './types';
+import {  calculateAggregateStatistics } from './datahandler';
+import { JsonData, Statistics} from './types';
 import StatisticBox from './components/StatisticBox';
 import Graph from './components/Graph';
-import Combos from './components/Combos';
-import { Punch,FileUploadProps } from './types';
+import {FileUploadProps } from './types';
 import powaLogo from './assets/powaboxing.svg';
 import { getAuth, signOut } from '@firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +13,6 @@ import { useNavigate } from 'react-router-dom';
 const Home: React.FC<FileUploadProps> = ({ workouts }) => {
   const [stats, setStats] = useState<Statistics | null>(null);
   const [graph, setGraph] = useState<Array<{ speed: number, force: number, acceleration: number, timestamp: string, hand:number | undefined, fistType:string }>>([]);
-  const [combos,setCombos] = useState<ComboItem[][] | null>(null);
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
@@ -33,19 +31,8 @@ const Home: React.FC<FileUploadProps> = ({ workouts }) => {
       processJsonDataMultiple(workouts);
     }
   }, [workouts]); // Dependency array includes workouts
-
-  const processJsonData = (json: JsonData) => {
-      const statistics = calculateStatistics(json);
-      if (statistics){
-        setStats(statistics);
-        setGraph(getPunchData(json))
-        const combos = getCombos(json);
-        setCombos(combos);
-
-      }
-  };
   
-  const processJsonDataMultiple = (jsonDataArray: Punch[]) => {
+  const processJsonDataMultiple = (jsonDataArray: JsonData[]) => {
     const statistics = calculateAggregateStatistics(jsonDataArray);
     if (statistics) {
       setStats(statistics.aggregatedStats);

@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import {  calculateAggregateStatistics } from './datahandler';
-import { JsonData, Statistics} from './types';
+import { calculateStatistics, getCombos, getPunchData } from './datahandler';
+import { ComboItem, JsonData, Statistics} from './types';
 import StatisticBox from './components/StatisticBox';
 import Graph from './components/Graph';
 import {FileUploadProps } from './types';
 import powaLogo from './assets/powaboxing.svg';
 import { getAuth, signOut } from '@firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import Combos from './components/Combos';
 
 
 
-const Home: React.FC<FileUploadProps> = ({ workouts }) => {
+const SingleWorkouts: React.FC<FileUploadProps> = ({ workouts }) => {
   const [stats, setStats] = useState<Statistics | null>(null);
   const [graph, setGraph] = useState<Array<{ speed: number, force: number, acceleration: number, timestamp: string, hand:number | undefined, fistType:string }>>([]);
+  const [combos,setCombos] = useState<ComboItem[][] | null>(null);
+  const [currentWorkoutIndex, setCurrentWorkoutIndex] = useState(0);
   const navigate = useNavigate();
+
+  
 
   const handleSignOut = async () => {
     const auth = getAuth();
@@ -27,27 +32,34 @@ const Home: React.FC<FileUploadProps> = ({ workouts }) => {
   };
 
   useEffect(() => {
-    if (workouts && workouts.length > 0) {
-      processJsonDataMultiple(workouts);
+    if (workouts && workouts.length > 0 && currentWorkoutIndex < workouts.length) {
+      processJsonData(workouts[currentWorkoutIndex]);
     }
-  }, [workouts]); // Dependency array includes workouts
-  
-  const processJsonDataMultiple = (jsonDataArray: JsonData[]) => {
-    const statistics = calculateAggregateStatistics(jsonDataArray);
-    if (statistics) {
-      setStats(statistics.aggregatedStats);
-      const transformedData = statistics.speedArray.map((speed, index) => ({
-        speed: speed,
-        force: statistics.forceArray[index],
-        acceleration: statistics.accelerationArray[index],
-        timestamp: `File# ${index+1}`,
-        hand:undefined,
-        fistType: statistics.fistTypeArray[index]
-      }));
-      
-      setGraph(transformedData);
-    }
+  }, [workouts, currentWorkoutIndex]);
+
+  const handleNextWorkout = () => {
+    if (currentWorkoutIndex < workouts.length - 1) {
+      setCurrentWorkoutIndex(currentWorkoutIndex + 1);
+    } 
   };
+
+  const handlePreviousWorkout = () => {
+    if (currentWorkoutIndex > 0) {
+      setCurrentWorkoutIndex(currentWorkoutIndex - 1);
+    } 
+  };
+
+
+  const processJsonData = (json: JsonData) => {
+    const statistics = calculateStatistics(json);
+    if (statistics){
+      setStats(statistics);
+      setGraph(getPunchData(json))
+      const combos = getCombos(json);
+      setCombos(combos);
+
+    }
+};
   
   const data = graph.map(item => ({
     timestamp: item.timestamp,
@@ -67,11 +79,33 @@ const Home: React.FC<FileUploadProps> = ({ workouts }) => {
           <img src={powaLogo} alt="POWA logo" className="mr-2 w-16 mb-5" /> 
         </div>
         <button
+              onClick={() => navigate('/home')}
+              className="absolute bg-orange-500 top-4 left-4 text-white py-2 px-4 rounded-md -my-1 hover:bg-orange-600 font-bold"
+              >← Back Home
+              </button>
+        <button
         onClick={handleSignOut}
         className="absolute top-4 right-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition ease-in duration-200"
       >
         Sign Out
       </button>
+      <div className='flex justify-center mb-7 items-center'>
+        { currentWorkoutIndex!==0 ?
+              <button
+              onClick={handlePreviousWorkout}
+              className="bg-orange-500 text-white px-4 rounded-md hover:bg-orange-600 font-bold"
+            >
+              ←
+            </button> : null}
+            <span className="mx-5 text-xl text-white">{"File #"+(currentWorkoutIndex + 1)}</span>
+            {currentWorkoutIndex!==workouts.length-1 ? <button
+              onClick={handleNextWorkout}
+              className="bg-orange-500 text-white  px-4 rounded-md hover:bg-orange-600 font-bold"
+            >
+              →
+            </button>
+             : null}
+          </div>
       { 
         <div className='bg-black'>
           {stats && (
@@ -84,15 +118,9 @@ const Home: React.FC<FileUploadProps> = ({ workouts }) => {
                 modeHand: stats.modeHand,
                 modePunchType: stats.modePunchType
               }} />
-              <div className="flex justify-center mb-5">
-              <button
-              onClick={() => navigate('/singleworkouts')}
-              className="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600 font-bold"
-              >See my workouts
-              </button>
-              </div>
               <div className="max-w-lg ml-80">
               <Graph data={data} />
+              <Combos combos={combos} />
               </div>
             </>
           )}
@@ -102,4 +130,4 @@ const Home: React.FC<FileUploadProps> = ({ workouts }) => {
   );
 };
 
-export default Home;
+export default SingleWorkouts;

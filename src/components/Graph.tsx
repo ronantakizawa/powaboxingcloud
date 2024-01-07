@@ -13,9 +13,9 @@ const Graph: React.FC<GraphProps> = ({ data }) => {
     return Math.ceil(data.length / 2) + 1;
   }
 
-const [graphResizeIndex1, setGraphResizeIndex1] = useState(calculateSize(data));
-const [graphResizeIndex2, setGraphResizeIndex2] = useState(calculateSize(data));
-const [graphResizeIndex3, setGraphResizeIndex3] = useState(calculateSize(data));
+const [graphResizeIndex1, setGraphResizeIndex1] = useState(2);
+const [graphResizeIndex2, setGraphResizeIndex2] = useState(2);
+const [graphResizeIndex3, setGraphResizeIndex3] = useState(2);
 
 const handleSliderChange1: React.ChangeEventHandler<HTMLInputElement> = (event) => {
   setGraphResizeIndex1(Number(event.target.value));

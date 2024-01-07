@@ -8,6 +8,7 @@ import { getStorage, ref, getBlob, listAll } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
 import firebaseConfig from '../firebase';
 import { JsonData } from './types';
+import SingleWorkouts from './SingleWorkouts';
 
 function App() {
   const app = initializeApp(firebaseConfig);
@@ -45,6 +46,7 @@ function App() {
         <Routes>
         <Route path="/" element={  <div className="animate-fade-in"><Login onUserLogin={setUser} /> </div>} />
         <Route path="/home" element={ user ? <div className="animate-fade-in"><Home workouts={workouts}  /> </div> :<Navigate to="/" /> } />
+        <Route path="/singleworkouts" element={ user ? <div className="animate-fade-in"><SingleWorkouts workouts={workouts}  /> </div> :<Navigate to="/" /> } />
         </Routes>
       </div>
     </Router>

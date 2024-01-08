@@ -4,7 +4,7 @@ import CustomTooltip from './CustomToolTip';
 import {GraphProps} from "../types"
 
 
-const Graph: React.FC<GraphProps> = ({ data }) => {
+const Graph: React.FC<GraphProps> = ({ data,singleWorkout }) => {
 
   const calculateSize = (data: GraphProps['data']) => {
     if (!Array.isArray(data)) {
@@ -32,7 +32,7 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
   return (
     <div className="chart-container space-y-4 mb-5 bg-black">
       <div className="flex flex-col items-center justify-center">
-        <h2 className="text-lg font-bold text-white mb-2 text-center">Average Speed from Workouts </h2>
+        <h2 className="text-lg font-bold text-white mb-2 text-center">{singleWorkout ? "Speed Performance": "Average Speed from Workouts"} </h2>
         <div className="flex items-center space-x-4 mb-5">
           <h3 className="text-lg font-bold text-white mb">Zoom</h3>
           <input 
@@ -58,7 +58,7 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
       </div>
 
       <div className="flex flex-col items-center justify-center">
-        <h2 className="text-lg font-bold text-white mb-2 text-center"> Average Acceleration from Workouts </h2>
+        <h2 className="text-lg font-bold text-white mb-2 text-center">{singleWorkout ? "Acceleration Performance": "Average Acceleration from Workouts"}</h2>
         <div className="flex items-center space-x-4 mb-5">
           <h3 className="text-lg font-bold text-white mb">Zoom</h3>
           <input 
@@ -84,7 +84,7 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
       </div>
 
       <div className="flex flex-col items-center justify-center">
-        <h2 className="text-lg font-bold text-white mb-2 text-center">Average Force from Workouts</h2>
+        <h2 className="text-lg font-bold text-white mb-2 text-center">{singleWorkout ? "Force Performance": "Average Force from Workouts"}</h2>
         <div className="flex items-center space-x-4 mb-5">
           <h3 className="text-lg font-bold text-white mb">Zoom</h3>
           <input 

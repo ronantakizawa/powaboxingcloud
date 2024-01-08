@@ -78,34 +78,38 @@ const SingleWorkouts: React.FC<FileUploadProps> = ({ workouts }) => {
           <h1 className="text-3xl font-bold mb-6 text-center">POWA Analytics</h1>
           <img src={powaLogo} alt="POWA logo" className="mr-2 w-16 mb-5" /> 
         </div>
-        <button
-              onClick={() => navigate('/home')}
-              className="absolute bg-orange-500 top-4 left-4 text-white py-2 px-4 rounded-md -my-1 hover:bg-orange-600 font-bold"
-              >← Back Home
-              </button>
-        <button
-        onClick={handleSignOut}
-        className="absolute top-4 right-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition ease-in duration-200"
-      >
-        Sign Out
-      </button>
-      <div className='flex justify-center mb-7 items-center'>
-        { currentWorkoutIndex!==0 ?
-              <button
-              onClick={handlePreviousWorkout}
-              className="bg-orange-500 text-white px-4 rounded-md hover:bg-orange-600 font-bold"
-            >
-              ←
-            </button> : null}
-            <span className="mx-5 text-xl text-white">{"File #"+(currentWorkoutIndex + 1)}</span>
-            {currentWorkoutIndex!==workouts.length-1 ? <button
-              onClick={handleNextWorkout}
-              className="bg-orange-500 text-white  px-4 rounded-md hover:bg-orange-600 font-bold"
-            >
-              →
-            </button>
-             : null}
-          </div>
+          <button
+          onClick={() => navigate('/home')}
+          className="absolute bg-orange-500 top-4 left-4 text-white py-2 px-4 rounded-md -my-1 hover:bg-orange-600 font-bold"
+          >← Home
+          </button>
+          <button
+          onClick={handleSignOut}
+          className="absolute top-4 right-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition ease-in duration-200"
+        >
+          Sign Out
+        </button>
+        <div className='flex justify-center mb-7 items-center'>
+    <button
+      onClick={handlePreviousWorkout}
+      className={`bg-orange-500 text-white px-4 rounded-md hover:bg-orange-600 font-bold ${currentWorkoutIndex === 0 ? 'invisible pointer-events-none' : ''}`}
+    >
+      ←
+    </button>
+
+  <span className="mx-5 text-xl text-white">{"File #" + (currentWorkoutIndex + 1)}</span>
+
+  <button
+    onClick={handleNextWorkout}
+    className={`bg-orange-500 text-white px-4 rounded-md hover:bg-orange-600 font-bold ${currentWorkoutIndex === workouts.length - 1 ? 'invisible pointer-events-none' : ''}`}
+  >
+    →
+  </button>
+</div>
+<div className='mb-5 flex text-sm justify-center -my-1'>
+    <p>You have {workouts.length} workouts</p>
+  </div>
+
       { 
         <div className='bg-black'>
           {stats && (
@@ -119,7 +123,7 @@ const SingleWorkouts: React.FC<FileUploadProps> = ({ workouts }) => {
                 modePunchType: stats.modePunchType
               }} />
               <div className="max-w-lg ml-80">
-              <Graph data={data} />
+              <Graph data={data} singleWorkout={true}/>
               <Combos combos={combos} />
               </div>
             </>

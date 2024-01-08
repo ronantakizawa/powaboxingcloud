@@ -92,7 +92,7 @@ const Home: React.FC<FileUploadProps> = ({ workouts }) => {
               </button>
               </div>
               <div className="max-w-lg ml-80">
-              <Graph data={data} />
+              <Graph data={data} singleWorkout={false}/>
               </div>
             </>
           )}

@@ -61,6 +61,7 @@ export interface FileUploadProps {
       acceleration: number;
       force: number;
     }>;
+    singleWorkout : boolean;
   };
 
   export type StatisticsProps = {

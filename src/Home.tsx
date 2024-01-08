@@ -94,7 +94,7 @@ const Home: React.FC<FileUploadProps> = ({ workouts }) => {
               }} />
               <div className="flex justify-center mb-5">
               <button
-              onClick={() => navigate('/singleworkouts')}
+              onClick={() => navigate('/singleworkout')}
               className="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600 font-bold"
               >See my workouts
               </button>

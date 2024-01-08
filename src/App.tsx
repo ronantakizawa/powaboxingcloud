@@ -44,8 +44,8 @@ function App() {
     <Router>
       <div className=" bg-black  flex flex-col items-center pt-8 text-white">
         <Routes>
-        <Route path="/" element={  <div className="animate-fade-in"><Login onUserLogin={setUser} /> </div>} />
-        <Route path="/home" element={ user ? <div className="animate-fade-in"><Home workouts={workouts}  /> </div> :<Navigate to="/" /> } />
+        <Route path="/" element={  <Login onUserLogin={setUser} />} />
+        <Route path="/home" element={ user ? <Home workouts={workouts}  />  :<Navigate to="/" /> } />
         <Route path="/singleworkouts" element={ user ? <div className="animate-fade-in"><SingleWorkouts workouts={workouts}  /> </div> :<Navigate to="/" /> } />
         </Routes>
       </div>

@@ -8,6 +8,7 @@ import powaLogo from './assets/powaboxing.svg';
 import { getAuth, signOut } from '@firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import Combos from './components/Combos';
+import Loading from './components/Loading';
 
 
 
@@ -16,6 +17,7 @@ const SingleWorkouts: React.FC<FileUploadProps> = ({ workouts }) => {
   const [graph, setGraph] = useState<Array<{ speed: number, force: number, acceleration: number, timestamp: string, hand:number | undefined, fistType:string }>>([]);
   const [combos,setCombos] = useState<ComboItem[][] | null>(null);
   const [currentWorkoutIndex, setCurrentWorkoutIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   
@@ -32,8 +34,10 @@ const SingleWorkouts: React.FC<FileUploadProps> = ({ workouts }) => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     if (workouts && workouts.length > 0 && currentWorkoutIndex < workouts.length) {
       processJsonData(workouts[currentWorkoutIndex]);
+      setIsLoading(false);
     }
   }, [workouts, currentWorkoutIndex]);
 
@@ -73,6 +77,11 @@ const SingleWorkouts: React.FC<FileUploadProps> = ({ workouts }) => {
 
 
   return (
+    isLoading ? 
+    <div className="fixed inset-0 bg-black z-40  flex justify-center items-center">
+        <Loading />
+      </div>
+    :
     <div className="p-4 mx-auto bg-black text-white">
       <div className="flex items-center justify-center">
           <h1 className="text-3xl font-bold mb-6 text-center">POWA Analytics</h1>

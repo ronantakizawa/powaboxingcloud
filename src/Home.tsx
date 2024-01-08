@@ -7,10 +7,12 @@ import {FileUploadProps } from './types';
 import powaLogo from './assets/powaboxing.svg';
 import { getAuth, signOut } from '@firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import Loading from './components/Loading';
 
 
 
 const Home: React.FC<FileUploadProps> = ({ workouts }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [stats, setStats] = useState<Statistics | null>(null);
   const [graph, setGraph] = useState<Array<{ speed: number, force: number, acceleration: number, timestamp: string, hand:number | undefined, fistType:string }>>([]);
   const navigate = useNavigate();
@@ -28,7 +30,9 @@ const Home: React.FC<FileUploadProps> = ({ workouts }) => {
 
   useEffect(() => {
     if (workouts && workouts.length > 0) {
+      setIsLoading(true);
       processJsonDataMultiple(workouts);
+      setIsLoading(false);
     }
   }, [workouts]); // Dependency array includes workouts
   
@@ -72,8 +76,12 @@ const Home: React.FC<FileUploadProps> = ({ workouts }) => {
       >
         Sign Out
       </button>
-      { 
-        <div className='bg-black'>
+      { isLoading ? (
+        <div className="fixed inset-0 bg-black z-40  flex justify-center items-center">
+          <Loading />
+        </div>
+      ) : (
+        <div className='bg-black animate-fade-in'>
           {stats && (
             <>
               <StatisticBox stats={{
@@ -96,7 +104,7 @@ const Home: React.FC<FileUploadProps> = ({ workouts }) => {
               </div>
             </>
           )}
-        </div>
+        </div>)
       }
     </div>
   );

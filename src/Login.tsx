@@ -13,12 +13,14 @@ import punchsensors3 from './assets/punchsensors3.jpg';
 import powaLogo from './assets/powaboxing.svg';
 import { getStorage, ref, listAll, getBlob } from 'firebase/storage';
 import { LoginProps } from './types';
+import Loading from './components/Loading';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 const Login: React.FC<LoginProps> = ({ onUserLogin }) => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   const [loginError, setLoginError] = useState(false);
 
   async function checkFilesAndNavigate(user: User) {
@@ -35,19 +37,25 @@ const Login: React.FC<LoginProps> = ({ onUserLogin }) => {
         await Promise.all(filePromises);
         onUserLogin(user);
         navigate('/home');
+        setIsLoading(false); 
       }
       else{
         setLoginError(true);
         await signOut(auth);
-        console.log("Signed out");
+        setIsLoading(false);
       }
     } 
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
+      setIsLoading(true);
       if (user) {
         checkFilesAndNavigate(user);
       } 
+      else{
+        setIsLoading(false);
+      }
+
     });
   
     return () => unsubscribe(); // Clean up the subscription on unmount
@@ -78,7 +86,12 @@ const Login: React.FC<LoginProps> = ({ onUserLogin }) => {
   
 
   return (
-    <div className="flex flex-col items-center bg-black text-white mt-10">
+     isLoading ? (
+      <div className="fixed inset-0 bg-black z-40  flex justify-center items-center">
+        <Loading />
+      </div>
+    ) : (
+    <div className="flex flex-col items-center bg-black text-white mt-10 animate-fade-in">
       <div className="text-center mb-6">
         <div className='flex mb-4'>
         <h1 className="text-4xl font-bold mb-4 ">Welcome to POWA Analytics</h1>
@@ -97,8 +110,8 @@ const Login: React.FC<LoginProps> = ({ onUserLogin }) => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
         <img src={image1} alt="Feature demonstration 1" className="shadow-lg rounded max-w-full h-auto align-middle border-none" />
-        <img src={image2} alt="Feature demonstration 2" className="shadow-lg rounded max-w-full h-auto align-middle border-none" />
-        <img src={image3} alt="Feature demonstration 3" className="shadow-lg rounded max-w-full h-auto align-middle border-none" />
+        <img src={image3} alt="Feature demonstration 2" className="shadow-lg rounded max-w-full h-auto align-middle border-none" />
+        <img src={image2} alt="Feature demonstration 3" className="shadow-lg rounded max-w-full h-auto align-middle border-none" />
       </div>
       <h1 className="text-2xl font-bold mt-10">
         Don't have the POWA Punch Sensors? Get them &nbsp; 
@@ -106,14 +119,14 @@ const Login: React.FC<LoginProps> = ({ onUserLogin }) => {
       </h1>
       <div className='flex space-x-10 mt-10 mb-20'>
       <img src={punchsensors1} className=' h-40'/>
-      <img src={punchsensors2} className=' h-40'/>
       <img src={punchsensors3} className=' h-40'/>
+      <img src={punchsensors2} className=' h-40'/>
       </div>
       <footer className='mb-5 mt-5 text-sm'>© 2024, POWA Boxing. </footer>
       
 
     </div>
-  );
+  ));
 };
 
 export default Login;

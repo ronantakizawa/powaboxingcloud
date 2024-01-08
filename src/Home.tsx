@@ -102,7 +102,7 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
               <button
               onClick={() => navigate('/singleworkout')}
               className="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600 font-bold"
-              >See my workouts
+              >See my Workouts
               </button>
               </div>
               <div className="max-w-lg ml-80">

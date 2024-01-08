@@ -17,9 +17,14 @@ export interface JsonData {
     punches: Punch[];
   }
 
-export interface FileUploadProps {
+export interface HomeProps {
     workouts: JsonData[];
-  }
+}
+
+export interface SingleWorkoutProps {
+  workouts: JsonData[];
+  avgstats: Statistics;
+}
   
   export interface Statistics {
     avgStarRating: number;

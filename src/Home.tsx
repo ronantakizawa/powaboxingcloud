@@ -3,7 +3,7 @@ import {  calculateAggregateStatistics } from './datahandler';
 import { JsonData, Statistics} from './types';
 import StatisticBox from './components/StatisticBox';
 import Graph from './components/Graph';
-import {FileUploadProps } from './types';
+import {HomeProps } from './types';
 import powaLogo from './assets/powaboxing.svg';
 import { getAuth, signOut } from '@firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -11,22 +11,28 @@ import Loading from './components/Loading';
 
 
 
-const Home: React.FC<FileUploadProps> = ({ workouts }) => {
+const Home: React.FC<HomeProps> = ({ workouts }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [stats, setStats] = useState<Statistics | null>(null);
   const [graph, setGraph] = useState<Array<{ speed: number, force: number, acceleration: number, timestamp: string, hand:number | undefined, fistType:string }>>([]);
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
-    const auth = getAuth();
-    try {
-      await signOut(auth);
-      console.log('User signed out successfully');
-      navigate('/');
-    } catch (error) {
-      console.error('Error signing out', error);
+    const confirmSignOut = window.confirm("Are you sure you want to sign out?");
+
+    if (confirmSignOut) {
+        const auth = getAuth();
+        try {
+            await signOut(auth);
+            console.log('User signed out successfully');
+            navigate('/');
+        } catch (error) {
+            console.error('Error signing out', error);
+        }
+    } else {
+        console.log('Sign out cancelled');
     }
-  };
+};
 
   useEffect(() => {
     if (workouts && workouts.length > 0) {

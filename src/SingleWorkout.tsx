@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { calculateStatistics, getCombos, getPunchData } from './datahandler';
-import { ComboItem, JsonData, Statistics} from './types';
+import { ComboItem, JsonData, HomeProps, Statistics} from './types';
 import StatisticBox from './components/StatisticBox';
 import Graph from './components/Graph';
-import {FileUploadProps } from './types';
 import powaLogo from './assets/powaboxing.svg';
 import { getAuth, signOut } from '@firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +11,7 @@ import Loading from './components/Loading';
 
 
 
-const SingleWorkouts: React.FC<FileUploadProps> = ({ workouts }) => {
+const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
   const [stats, setStats] = useState<Statistics | null>(null);
   const [graph, setGraph] = useState<Array<{ speed: number, force: number, acceleration: number, timestamp: string, hand:number | undefined, fistType:string }>>([]);
   const [combos,setCombos] = useState<ComboItem[][] | null>(null);
@@ -23,15 +22,21 @@ const SingleWorkouts: React.FC<FileUploadProps> = ({ workouts }) => {
   
 
   const handleSignOut = async () => {
-    const auth = getAuth();
-    try {
-      await signOut(auth);
-      console.log('User signed out successfully');
-      navigate('/');
-    } catch (error) {
-      console.error('Error signing out', error);
+    const confirmSignOut = window.confirm("Are you sure you want to sign out?");
+
+    if (confirmSignOut) {
+        const auth = getAuth();
+        try {
+            await signOut(auth);
+            console.log('User signed out successfully');
+            navigate('/');
+        } catch (error) {
+            console.error('Error signing out', error);
+        }
+    } else {
+        console.log('Sign out cancelled');
     }
-  };
+};
 
   useEffect(() => {
     setIsLoading(true);

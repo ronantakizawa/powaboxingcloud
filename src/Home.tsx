@@ -17,6 +17,13 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
   const [graph, setGraph] = useState<Array<{ speed: number, force: number, acceleration: number, timestamp: string, hand:number | undefined, fistType:string }>>([]);
   const navigate = useNavigate();
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   const handleSignOut = async () => {
     const confirmSignOut = window.confirm("Are you sure you want to sign out?");
 
@@ -71,49 +78,72 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
 
 
   return (
-    <div className="p-4 mx-auto bg-black text-white">
-      <div className="flex items-center justify-center">
-          <h1 className="text-3xl font-bold mb-6 text-center">POWA Analytics</h1>
-          <img src={powaLogo} alt="POWA logo" className="mr-2 w-16 mb-5" /> 
-        </div>
-        <button
-        onClick={handleSignOut}
-        className="absolute top-4 right-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition ease-in duration-200"
-      >
-        Sign Out
-      </button>
-      { isLoading ? (
-        <div className="fixed inset-0 bg-black z-40  flex justify-center items-center">
-          <Loading />
-        </div>
-      ) : (
-        <div className='bg-black animate-fade-in'>
-          {stats && (
-            <>
-              <StatisticBox stats={{
-                  avgStarRating: stats.avgStarRating,
-                  avgAcceleration: stats.avgAcceleration,
-                  avgSpeed: stats.avgSpeed,
-                  avgForce: stats.avgForce,
-                  modeHand: stats.modeHand,
-                  modePunchType: stats.modePunchType
-                }}  />
-              <div className="flex justify-center mb-5">
-              <button
-              onClick={() => navigate('/singleworkout', { state: { avgstats: stats } })}
-              className="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600 font-bold"
-              >See my Workouts
-              </button>
-              </div>
-              <div className="max-w-lg ml-80">
-              <Graph data={data} singleWorkout={false}/>
-              </div>
-            </>
-          )}
-        </div>)
-      }
+    <div className="bg-black">
+          <div className="flex items-center justify-start w-full">
+  <button onClick={toggleSidebar}>
+    <p className='text-4xl mb-3'>&#9776;</p> 
+  </button>
+
+  <div className="flex-grow"></div>
+
+  <div className="flex items-center justify-center">
+    <h1 className="text-3xl font-bold text-center">POWA Analytics</h1>
+    <img src={powaLogo} alt="POWA logo" className="w-16 h-16 ml-2" />
+  </div>
+
+  <div className="flex-grow"></div>
+</div>
+<div className={`w-60 absolute top-0 left-0 z-50 h-full bg-orange-500 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+    <div className="flex flex-col items-start justify-between h-full p-4">
+      <div className="flex items-center w-full">
+        <button onClick={toggleSidebar} className="text-white text-xl font-bold pb-5">
+          &#10005; 
+        </button>
+      </div>
+      <nav className="flex flex-col w-full font-bold h-full"> 
+        <button onClick={() => {navigate('/home'); toggleSidebar();}} className="w-full text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Home</button>
+        <button onClick={() => {navigate('/singleworkout', { state: { avgstats: stats } }); toggleSidebar();}} className="w-full text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Single Workouts</button>
+        <button onClick={() => {handleSignOut(); toggleSidebar();}} className="w-full text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Sign Out</button>
+      </nav>
+    </div>
+</div>
+      <div className="pt-10">
+        {isLoading ? (
+          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black">
+            <Loading />
+          </div>
+        ) : (
+          <div className="animate-fade-in">
+            {stats && (
+              <>
+                <StatisticBox stats={{
+                    avgStarRating: stats.avgStarRating,
+                    avgAcceleration: stats.avgAcceleration,
+                    avgSpeed: stats.avgSpeed,
+                    avgForce: stats.avgForce,
+                    modeHand: stats.modeHand,
+                    modePunchType: stats.modePunchType
+                  }} 
+                />
+                <div className="flex justify-center my-5">
+                  <button
+                    onClick={() => navigate('/singleworkout', { state: { avgstats: stats } })}
+                    className="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600 font-bold"
+                  >
+                    See my Workouts
+                  </button>
+                </div>
+                <div className="max-w-lg mx-auto">
+                  <Graph data={data} singleWorkout={false}/>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
-};
+                }
+  
 
 export default Home;

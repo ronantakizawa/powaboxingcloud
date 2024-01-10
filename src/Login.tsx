@@ -113,14 +113,15 @@ const Login: React.FC<LoginProps> = ({ onUserLogin }) => {
         <img src={image2} alt="Feature demonstration 3" className="shadow-lg rounded max-w-full h-auto align-middle border-none" />
       </div>
       <h1 className="text-2xl font-bold mt-10">
-        Don't have the POWA Punch Sensors? Get them &nbsp; 
-        <a href="https://powaboxing.com/" className="underline">HERE</a>
-      </h1>
-      <div className='flex space-x-10 mt-10 mb-20'>
-      <img src={punchsensors1} className=' h-40'/>
-      <img src={punchsensors3} className=' h-40'/>
-      <img src={punchsensors2} className=' h-40'/>
-      </div>
+      Don't have the POWA Punch Sensors?
+    </h1>
+    <h1 className='text-2xl font-bold '>Get them &nbsp; 
+      <a href="https://powaboxing.com/" className="underline">HERE</a></h1>
+    <div className='flex flex-col sm:flex-row space-x-0 sm:space-x-10 mt-10 mb-20'>
+      <img src={punchsensors1} className='w-full h-auto sm:h-40'/>
+      <img src={punchsensors3} className='w-full h-auto sm:h-40'/>
+      <img src={punchsensors2} className='w-full h-auto sm:h-40'/>
+    </div>
       <footer className='mb-5 mt-5 text-sm'>© 2024, POWA Boxing. </footer>
       
 

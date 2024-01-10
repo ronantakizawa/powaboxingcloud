@@ -21,8 +21,12 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { avgstats } = location.state;
-
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
   const handleSignOut = async () => {
     const confirmSignOut = window.confirm("Are you sure you want to sign out?");
@@ -85,69 +89,86 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
 
 
   return (
-    isLoading ? 
-    <div className="fixed inset-0 bg-black z-40  flex justify-center items-center">
-        <Loading />
-      </div>
-    :
-    <div className="p-4 mx-auto bg-black text-white">
-      <div className="flex items-center justify-center">
-          <h1 className="text-3xl font-bold mb-6 text-center">POWA Analytics</h1>
-          <img src={powaLogo} alt="POWA logo" className="mr-2 w-16 mb-5" /> 
-        </div>
-          <button
-          onClick={() => navigate('/home')}
-          className="absolute bg-orange-500 top-4 left-4 text-white py-2 px-4 rounded-md -my-1 hover:bg-orange-600 font-bold"
-          >← Home
-          </button>
-          <button
-          onClick={handleSignOut}
-          className="absolute top-4 right-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition ease-in duration-200"
-        >
-          Sign Out
+    <div className="bg-black">
+      <div className="flex items-center justify-start w-full">
+        <button onClick={toggleSidebar}>
+          <p className='text-4xl mb-3'>&#9776;</p>
         </button>
-        <div className='flex justify-center mb-7 items-center'>
-    <button
-      onClick={handlePreviousWorkout}
-      className={`bg-orange-500 text-white px-4 rounded-md hover:bg-orange-600 font-bold ${currentWorkoutIndex === 0 ? 'invisible pointer-events-none' : ''}`}
-    >
-      ←
-    </button>
 
-  <span className="mx-5 text-xl text-white">{"File #" + (currentWorkoutIndex + 1)}</span>
+        <div className="flex-grow"></div>
 
-  <button
-    onClick={handleNextWorkout}
-    className={`bg-orange-500 text-white px-4 rounded-md hover:bg-orange-600 font-bold ${currentWorkoutIndex === workouts.length - 1 ? 'invisible pointer-events-none' : ''}`}
-  >
-    →
-  </button>
-</div>
-<div className='mb-5 flex text-sm justify-center -my-1'>
-    <p>You have {workouts.length} workouts</p>
-  </div>
-
-      { 
-        <div className='bg-black'>
-          {stats && (
-            <>
-              <StatisticBox stats={{
-                avgStarRating: stats.avgStarRating,
-                avgAcceleration: stats.avgAcceleration,
-                avgSpeed: stats.avgSpeed,
-                avgForce: stats.avgForce,
-                modeHand: stats.modeHand,
-                modePunchType: stats.modePunchType
-              }} avg={avgstats}/>
-              <div className="max-w-lg ml-80">
-              <Graph data={data} singleWorkout={true}/>
-              <Combos combos={combos} />
-              </div>
-            </>
-          )}
+        <div className="flex items-center justify-center">
+          <h1 className="text-3xl font-bold text-center">POWA Analytics</h1>
+          <img src={powaLogo} alt="POWA logo" className="w-16 h-16 ml-2" />
         </div>
-      }
+
+        <div className="flex-grow"></div>
+      </div>
+
+      <div className={`w-60 absolute top-0 left-0 z-50 h-full bg-orange-500 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="flex flex-col items-start justify-between h-full p-4">
+          <div className="flex items-center w-full">
+            <button onClick={toggleSidebar} className="text-white text-xl font-bold pb-5">
+              &#10005;
+            </button>
+          </div>
+          <nav className="flex flex-col w-full font-bold h-full">
+            <button onClick={() => {navigate('/home'); toggleSidebar();}} className="w-full text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Home</button>
+            <button onClick={() => {navigate('/singleworkout', { state: { avgstats: stats } }); toggleSidebar();}} className="w-full text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Single Workouts</button>
+            <button onClick={() => {handleSignOut(); toggleSidebar();}} className="w-full text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Sign Out</button>
+          </nav>
+        </div>
+      </div>
+      <div className="pt-10">
+  {isLoading ? (
+    <div className="fixed inset-0 bg-black z-40 flex justify-center items-center">
+      <Loading />
     </div>
+  ) : (
+    <>
+    <div className='flex justify-center mb-3'>
+    <button
+                onClick={handlePreviousWorkout}
+                className={`bg-orange-500 text-white px-4 rounded-md hover:bg-orange-600 font-bold ${currentWorkoutIndex === 0 ? 'invisible pointer-events-none' : ''}`}
+              >
+                ←
+              </button>
+
+              <span className="mx-5 text-xl text-white">{"File #" + (currentWorkoutIndex + 1)}</span>
+
+              <button
+                onClick={handleNextWorkout}
+                className={`bg-orange-500 text-white px-4 rounded-md hover:bg-orange-600 font-bold ${currentWorkoutIndex === workouts.length - 1 ? 'invisible pointer-events-none' : ''}`}
+              >
+                →
+              </button>
+              </div>
+
+              <div className='mb-5 flex text-sm justify-center -my-1'>
+                <p>You have {workouts.length} workouts</p>
+              </div>
+            <div className='bg-black'>
+                {stats && (
+                  <>
+                    <StatisticBox stats={{
+                      avgStarRating: stats.avgStarRating,
+                      avgAcceleration: stats.avgAcceleration,
+                      avgSpeed: stats.avgSpeed,
+                      avgForce: stats.avgForce,
+                      modeHand: stats.modeHand,
+                      modePunchType: stats.modePunchType
+                    }} avg={avgstats} />
+                    <div className="max-w-lg ml-80">
+                      <Graph data={data} singleWorkout={true} />
+                      <Combos combos={combos} />
+                    </div>
+                  </>
+                )}
+              </div></>
+  )}
+</div>
+</div>
+
   );
 };
 

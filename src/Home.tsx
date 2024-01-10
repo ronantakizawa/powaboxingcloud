@@ -100,7 +100,7 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
                 }}  />
               <div className="flex justify-center mb-5">
               <button
-              onClick={() => navigate('/singleworkout')}
+              onClick={() => navigate('/singleworkout', { state: { avgstats: stats } })}
               className="bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600 font-bold"
               >See my Workouts
               </button>

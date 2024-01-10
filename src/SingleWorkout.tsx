@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { calculateAggregateStatistics, calculateStatistics, getCombos, getPunchData } from './datahandler';
+import { calculateStatistics, getCombos, getPunchData } from './datahandler';
 import { ComboItem, JsonData, HomeProps, Statistics} from './types';
 import StatisticBox from './components/StatisticBox';
 import Graph from './components/Graph';
@@ -8,6 +8,7 @@ import { getAuth, signOut } from '@firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import Combos from './components/Combos';
 import Loading from './components/Loading';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -17,8 +18,9 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
   const [combos,setCombos] = useState<ComboItem[][] | null>(null);
   const [currentWorkoutIndex, setCurrentWorkoutIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  const [avgstats,setAvgStats] = useState<Statistics | undefined>(undefined);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { avgstats } = location.state;
 
   
 
@@ -43,8 +45,6 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
     setIsLoading(true);
     if (workouts && workouts.length > 0 && currentWorkoutIndex < workouts.length) {
       processJsonData(workouts[currentWorkoutIndex]);
-      const avgstatistics = calculateAggregateStatistics(workouts);
-      setAvgStats(avgstatistics.aggregatedStats);
       setIsLoading(false);
     }
   }, [workouts, currentWorkoutIndex]);

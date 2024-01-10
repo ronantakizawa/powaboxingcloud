@@ -10,7 +10,7 @@ const StatisticBox: React.FC<StatisticBoxProps> = ({ stats,avg}) => {
   const same = "Same as your average";
   const different = "Different to your average";
   return (
-    <div className="bg-black p-4 bg-gray-800 shadow rounded-lg mb-10 mx-auto" style={{ maxWidth: '1200px' }}>
+    <div className=" p-4 bg-gray-800 shadow rounded-lg mb-10 mx-auto" style={{ maxWidth: '1200px' }}>
       <div className="text-center font-bold text-xl mb-4 text-white">Performance from Workouts</div>
       <div className="grid grid-cols-6 gap-y-5 gap-x-5">
         <Statistic title="Average Star Rating ⭐️" value={stats.avgStarRating.toFixed(2)} comparison={avg?.avgStarRating ? (stats.avgStarRating > avg.avgStarRating ? higher : lower) : undefined }/>

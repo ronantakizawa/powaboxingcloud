@@ -37,6 +37,7 @@ export interface SingleWorkoutProps {
   export interface StatisticProps {
     title: string;
     value: number | string;
+    comparison: string | undefined;
   }
   
   export interface ScrapedData {
@@ -69,8 +70,16 @@ export interface SingleWorkoutProps {
     singleWorkout : boolean;
   };
 
-  export type StatisticsProps = {
+  export type StatisticBoxProps = {
     stats: {
+      avgStarRating: number;
+      avgAcceleration: number;
+      avgSpeed: number;
+      avgForce: number;
+      modeHand: number;
+      modePunchType: string;
+    };
+    avg?: {
       avgStarRating: number;
       avgAcceleration: number;
       avgSpeed: number;

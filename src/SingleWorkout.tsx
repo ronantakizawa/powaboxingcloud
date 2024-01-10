@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { calculateStatistics, getCombos, getPunchData } from './datahandler';
+import { calculateAggregateStatistics, calculateStatistics, getCombos, getPunchData } from './datahandler';
 import { ComboItem, JsonData, HomeProps, Statistics} from './types';
 import StatisticBox from './components/StatisticBox';
 import Graph from './components/Graph';
@@ -17,6 +17,7 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
   const [combos,setCombos] = useState<ComboItem[][] | null>(null);
   const [currentWorkoutIndex, setCurrentWorkoutIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [avgstats,setAvgStats] = useState<Statistics | undefined>(undefined);
   const navigate = useNavigate();
 
   
@@ -42,6 +43,8 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
     setIsLoading(true);
     if (workouts && workouts.length > 0 && currentWorkoutIndex < workouts.length) {
       processJsonData(workouts[currentWorkoutIndex]);
+      const avgstatistics = calculateAggregateStatistics(workouts);
+      setAvgStats(avgstatistics.aggregatedStats);
       setIsLoading(false);
     }
   }, [workouts, currentWorkoutIndex]);
@@ -135,7 +138,7 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
                 avgForce: stats.avgForce,
                 modeHand: stats.modeHand,
                 modePunchType: stats.modePunchType
-              }} />
+              }} avg={avgstats}/>
               <div className="max-w-lg ml-80">
               <Graph data={data} singleWorkout={true}/>
               <Combos combos={combos} />

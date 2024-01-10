@@ -91,13 +91,13 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
           {stats && (
             <>
               <StatisticBox stats={{
-                avgStarRating: stats.avgStarRating,
-                avgAcceleration: stats.avgAcceleration,
-                avgSpeed: stats.avgSpeed,
-                avgForce: stats.avgForce,
-                modeHand: stats.modeHand,
-                modePunchType: stats.modePunchType
-              }} />
+                  avgStarRating: stats.avgStarRating,
+                  avgAcceleration: stats.avgAcceleration,
+                  avgSpeed: stats.avgSpeed,
+                  avgForce: stats.avgForce,
+                  modeHand: stats.modeHand,
+                  modePunchType: stats.modePunchType
+                }}  />
               <div className="flex justify-center mb-5">
               <button
               onClick={() => navigate('/singleworkout')}

@@ -4,7 +4,7 @@ import powaLogo from '../assets/powaboxing.svg';
 const Loading = () => {
   return (
     <div className="fixed inset-0 bg-black  z-50 flex justify-center items-center">
-      <div style={{ position: 'relative' }}>
+      <div className='relative'>
         <ClipLoader size={250} color={"orange"} />
         <img 
           src={powaLogo} 

@@ -44,8 +44,8 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
             className="slider" 
           />
         </div>
-        <div className="w-[150%] overflow-x-auto">
-        <LineChart width={300*graphResizeIndex1} height={300} data={data} className='ml-16'>
+        <div className="w-[150%] md:w-[75%] overflow-x-auto">
+        <LineChart width={200*graphResizeIndex1} height={300} data={data}>
           <XAxis dataKey="timestamp" interval="preserveStartEnd" />
           <YAxis label={{ value: 'Speed (km/h)', angle: -90, position: 'insideLeft' }} dataKey="speed" />
           <Tooltip content={<CustomTooltip active={undefined} payload={undefined} label={undefined} />} />
@@ -70,8 +70,8 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
             className="slider" 
           />
         </div>
-        <div className="w-[150%] overflow-x-auto">
-        <LineChart width={graphResizeIndex2*300} height={300} data={data} className='ml-16'>
+        <div className="w-[150%] md:w-[75%] overflow-x-auto">
+        <LineChart width={graphResizeIndex2*200} height={300} data={data}>
           <XAxis dataKey="timestamp"/>
           <YAxis label={{ value: 'Acceleration (Gs)', angle: -90, position: 'insideLeft' }} dataKey="acceleration"/>
           <Tooltip content={<CustomTooltip active={undefined} payload={undefined} label={undefined} />} />
@@ -96,8 +96,8 @@ const handleSliderChange3: React.ChangeEventHandler<HTMLInputElement> = (event) 
             className="slider" 
           />
         </div>
-        <div className="w-[150%] overflow-x-auto">
-        <LineChart width={graphResizeIndex3*300} height={300} data={data} className='ml-16'>
+        <div className="w-[150%] md:w-[75%] overflow-x-auto">
+        <LineChart width={graphResizeIndex3*200} height={300} data={data}>
           <XAxis dataKey="timestamp" />
           <YAxis label={{ value: 'Force (Newtons)', angle: -90, position: 'insideLeft' }} dataKey="force"/>
           <Tooltip content={<CustomTooltip active={undefined} payload={undefined} label={undefined} />} />

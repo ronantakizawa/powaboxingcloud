@@ -79,20 +79,20 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
 
   return (
     <div className="bg-black">
-  <div className="flex items-center justify-center w-full">
-  <button onClick={toggleSidebar}>
-    <p className='text-4xl mb-3'>&#9776;</p> 
-  </button>
+  <div className="flex items-center justify-start w-full">
+        <button onClick={toggleSidebar}>
+          <p className='text-4xl mb-3 ml-14'>&#9776;</p>
+        </button>
 
-  <div className="flex-grow"></div>
+        <div className="flex-grow"></div>
 
-  <div className="flex items-center justify-center">
-    <h1 className="text-3xl font-bold text-center">POWA Analytics</h1>
-    <img src={powaLogo} alt="POWA logo" className="w-16 h-16 ml-2" />
-  </div>
+        <div className="flex items-center justify-center mr-10">
+          <h1 className="text-2xl font-bold text-center">POWA Analytics</h1>
+          <img src={powaLogo} alt="POWA logo" className="w-16 h-16 ml-2" />
+        </div>
 
-  <div className="flex-grow"></div>
-</div>
+        <div className="flex-grow"></div>
+      </div>
 <div className={`w-60 absolute top-0 left-0 z-50 min-h-screen bg-orange-500 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
     <div className="flex flex-col items-start justify-between h-full p-4">
       <div className="flex w-full">
@@ -138,7 +138,7 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
                     See my Workouts
                   </button>
                 </div>
-                <div className="max-w-lg mx-auto">
+                <div className="max-w-sm mx-auto md:max-w-lg">
                   <Graph data={data} singleWorkout={false}/>
                 </div>
               </>

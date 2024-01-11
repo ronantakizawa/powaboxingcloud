@@ -92,13 +92,13 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
     <div className="bg-black">
       <div className="flex items-center justify-start w-full">
         <button onClick={toggleSidebar}>
-          <p className='text-4xl mb-3'>&#9776;</p>
+          <p className='text-4xl mb-3 ml-14'>&#9776;</p>
         </button>
 
         <div className="flex-grow"></div>
 
-        <div className="flex items-center justify-center">
-          <h1 className="text-3xl font-bold text-center">POWA Analytics</h1>
+        <div className="flex items-center justify-center mr-10">
+          <h1 className="text-2xl font-bold text-center">POWA Analytics</h1>
           <img src={powaLogo} alt="POWA logo" className="w-16 h-16 ml-2" />
         </div>
 
@@ -163,7 +163,7 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
                       modeHand: stats.modeHand,
                       modePunchType: stats.modePunchType
                     }} avg={avgstats} />
-                    <div className="max-w-lg ml-80">
+                    <div className="max-w-sm mx-auto ">
                       <Graph data={data} singleWorkout={true} />
                       <Combos combos={combos} />
                     </div>

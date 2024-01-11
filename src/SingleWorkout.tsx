@@ -119,7 +119,7 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
       </div>
       <nav className="flex flex-col w-full font-bold h-full -mt-8"> 
         <button onClick={() => {navigate('/home'); toggleSidebar();}} className="ml-5  text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Home</button>
-        <button onClick={() => {navigate('/singleworkout', { state: { avgstats: stats } }); toggleSidebar();}} className="ml-5  text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Single Workouts</button>
+        <button onClick={() => {navigate('/singleworkout', { state: { avgstats: avgstats } }); toggleSidebar();}} className="ml-5  text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Single Workouts</button>
         <button onClick={() => {handleSignOut(); toggleSidebar();}} className="ml-5 text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Sign Out</button>
       </nav>
     </div>

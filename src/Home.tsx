@@ -79,7 +79,7 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
 
   return (
     <div className="bg-black">
-  <div className="flex items-center justify-start w-full">
+  <div className="flex items-center justify-center w-full">
   <button onClick={toggleSidebar}>
     <p className='text-4xl mb-3'>&#9776;</p> 
   </button>
@@ -93,7 +93,7 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
 
   <div className="flex-grow"></div>
 </div>
-<div className={`w-60 absolute top-0 left-0 z-50 h-full bg-orange-500 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+<div className={`w-60 absolute top-0 left-0 z-50 min-h-screen bg-orange-500 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
     <div className="flex flex-col items-start justify-between h-full p-4">
       <div className="flex w-full">
         <button onClick={toggleSidebar} className="text-white text-xl font-bold mb-10">

@@ -9,6 +9,8 @@ const StatisticBox: React.FC<StatisticBoxProps> = ({ stats,avg}) => {
   const lower = "Lower than your average";
   const same = "Same as your average";
   const different = "Different to your average";
+  console.log(stats)
+  console.log(avg)
   return (
     <div className=" p-4 bg-gray-800 shadow rounded-lg mb-10 mx-auto max-w-[1200px]">
       <div className="text-center font-bold text-xl mb-4 text-white">Performance from Workouts</div>

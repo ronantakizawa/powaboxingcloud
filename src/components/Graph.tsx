@@ -9,7 +9,7 @@ const Graph: React.FC<GraphProps> = ({ data,singleWorkout }) => {
   const [graphResizeIndex1, setGraphResizeIndex1] = useState(2);
   const [graphResizeIndex2, setGraphResizeIndex2] = useState(2);
   const [graphResizeIndex3, setGraphResizeIndex3] = useState(2);
-  const [chartWidthMultiplier, setChartWidthMultiplier] = useState( 150);
+  const [chartWidthMultiplier, setChartWidthMultiplier] = useState(150);
 
 
 
@@ -18,7 +18,7 @@ const Graph: React.FC<GraphProps> = ({ data,singleWorkout }) => {
     const handleResize = () => {
       // Change multiplier based on screen width
       if (window.innerWidth >= 768) {
-        setChartWidthMultiplier(300); // Desktop
+        setChartWidthMultiplier(400); // Desktop
       } else {
         setChartWidthMultiplier(150); // Mobile
       }

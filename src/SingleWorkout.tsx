@@ -22,26 +22,30 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
   const location = useLocation();
   const { avgstats } = location.state;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
 
   useEffect(() => {
     const body = document.body;
-    
+  
+    // Handling sidebar state
     if (isSidebarOpen) {
       body.classList.add('overflow-hidden');
     } else {
       body.classList.remove('overflow-hidden');
     }
-
+  
+    // Handling workouts and currentWorkoutIndex state
+    if (workouts && workouts.length > 0 && currentWorkoutIndex < workouts.length) {
+      setIsLoading(true);
+      processJsonData(workouts[currentWorkoutIndex]);
+      setIsLoading(false);
+    }
+  
+    // Cleanup function for sidebar state
     return () => {
       body.classList.remove('overflow-hidden');
     };
-  }, [isSidebarOpen]);
-  
+  }, [isSidebarOpen, workouts, currentWorkoutIndex]); 
+
 
   const handleSignOut = async () => {
     const confirmSignOut = window.confirm("Are you sure you want to sign out?");
@@ -60,13 +64,6 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
     }
 };
 
-  useEffect(() => {
-    setIsLoading(true);
-    if (workouts && workouts.length > 0 && currentWorkoutIndex < workouts.length) {
-      processJsonData(workouts[currentWorkoutIndex]);
-      setIsLoading(false);
-    }
-  }, [workouts, currentWorkoutIndex]);
 
   const handleNextWorkout = () => {
     if (currentWorkoutIndex < workouts.length - 1) {
@@ -92,21 +89,12 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
     }
 };
   
-  const data = graph.map(item => ({
-    timestamp: item.timestamp,
-    hand:item.hand,
-    speed: item.speed,
-    acceleration: item.acceleration,
-    force:item.force,
-    fistType:item.fistType
-
-  }));
 
 
   return (
     <div className="bg-black">
       <div className="flex items-center justify-start w-full">
-        <button onClick={toggleSidebar}>
+        <button onClick={()=> setIsSidebarOpen(!isSidebarOpen)}>
           <p className='text-4xl mb-3 ml-14'>&#9776;</p>
         </button>
 
@@ -123,7 +111,7 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
       <div className={`w-60 absolute top-0 left-0 z-50 h-full bg-orange-500 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
     <div className="flex flex-col items-start justify-between h-full p-4">
       <div className="flex w-full">
-        <button onClick={toggleSidebar} className="text-white text-xl font-bold mb-10">
+        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-white text-xl font-bold mb-10">
           &#10005; 
         </button>
         <div className="flex items-center justify-center mb-10 ml-5">
@@ -133,9 +121,9 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
 
       </div>
       <nav className="flex flex-col w-full font-bold h-full -mt-8"> 
-        <button onClick={() => {navigate('/home'); toggleSidebar();}} className="ml-5  text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Home</button>
-        <button onClick={() => {navigate('/singleworkout', { state: { avgstats: avgstats } }); toggleSidebar();}} className="ml-5  text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Single Workouts</button>
-        <button onClick={() => {handleSignOut(); toggleSidebar();}} className="ml-5 text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Sign Out</button>
+        <button onClick={() => {navigate('/home');}} className="ml-5  text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Home</button>
+        <button onClick={() => {navigate('/singleworkout', { state: { avgstats: avgstats } }); setIsSidebarOpen(!isSidebarOpen)}} className="ml-5  text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Single Workouts</button>
+        <button onClick={() => {handleSignOut(); }} className="ml-5 text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Sign Out</button>
       </nav>
     </div>
 </div>
@@ -179,7 +167,15 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
                       modePunchType: stats.modePunchType
                     }} avg={avgstats} />
                     <div className="max-w-xs mx-auto md:max-w-3xl">
-                      <Graph data={data} singleWorkout={true} />
+                      <Graph data={graph.map(item => ({
+                        timestamp: item.timestamp,
+                        hand:item.hand,
+                        speed: item.speed,
+                        acceleration: item.acceleration,
+                        force:item.force,
+                        fistType:item.fistType
+                        }))} 
+                        singleWorkout={true} />
                       <Combos combos={combos} />
                     </div>
                   </>

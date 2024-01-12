@@ -24,6 +24,21 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  useEffect(() => {
+    const body = document.body;
+    
+    if (isSidebarOpen) {
+      body.classList.add('overflow-hidden');
+    } else {
+      body.classList.remove('overflow-hidden');
+    }
+
+    return () => {
+      body.classList.remove('overflow-hidden');
+    };
+  }, [isSidebarOpen]);
+
+
   const handleSignOut = async () => {
     const confirmSignOut = window.confirm("Are you sure you want to sign out?");
 

@@ -138,7 +138,7 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
                     See my Workouts
                   </button>
                 </div>
-                <div className="max-w-sm mx-auto md:max-w-lg">
+                <div>
                   <Graph data={data} singleWorkout={false}/>
                 </div>
               </>
@@ -148,7 +148,7 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
       </div>
     </div>
   );
-                }
+}
   
 
 export default Home;

@@ -163,7 +163,7 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
                       modeHand: stats.modeHand,
                       modePunchType: stats.modePunchType
                     }} avg={avgstats} />
-                    <div className="max-w-sm mx-auto ">
+                    <div className="max-w-xs mx-auto md:max-w-3xl">
                       <Graph data={data} singleWorkout={true} />
                       <Combos combos={combos} />
                     </div>

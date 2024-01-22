@@ -108,6 +108,7 @@ const Login: React.FC<LoginProps> = ({ onUserLogin }) => {
             {loginError && <p className="text-red-500">Failed login. Make sure you have a connected account.</p>}
           </>
       </div>
+      <div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
         <img src={image1} alt="Feature demonstration 1" className="shadow-lg rounded max-w-full h-auto align-middle border-none" />
         <img src={image3} alt="Feature demonstration 2" className="shadow-lg rounded max-w-full h-auto align-middle border-none" />
@@ -123,6 +124,7 @@ const Login: React.FC<LoginProps> = ({ onUserLogin }) => {
       <img src={punchsensors1} className=' sm:h-40'/>
       <img src={punchsensors3} className='sm:h-40'/>
       <img src={punchsensors2} className=' sm:h-40'/>
+    </div>
     </div>
       <footer className='mb-5 mt-5 text-sm'>© 2024, POWA Boxing. </footer>
       

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComboItem} from '../types';
+import { ComboItem} from '../utils/types';
 
 interface ComboProps {
   combos: ComboItem[][] | null;

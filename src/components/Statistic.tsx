@@ -1,4 +1,4 @@
-import { StatisticProps } from '../types';
+import { StatisticProps } from '../utils/types';
 
 const Statistic: React.FC<StatisticProps> = ({ title, value, comparison }) => {
 

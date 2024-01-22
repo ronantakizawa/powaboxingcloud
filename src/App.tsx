@@ -7,7 +7,7 @@ import { User } from 'firebase/auth';
 import { getStorage, ref, getBlob, listAll } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
 import firebaseConfig from '../firebase';
-import { JsonData } from './types';
+import { JsonData } from './utils/types';
 import SingleWorkout from './SingleWorkout';
 
 function App() {

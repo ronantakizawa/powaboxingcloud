@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Statistic from "./Statistic";
-import { StatisticBoxProps } from '../types';
+import { StatisticBoxProps } from '../utils/types';
 
 const StatisticBox: React.FC<StatisticBoxProps> = ({ stats,avg}) => {
 

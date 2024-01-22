@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {  calculateAggregateStatistics } from './utils/datahandler';
-import { JsonData, Statistics} from './types';
+import { JsonData, Statistics} from './utils/types';
 import StatisticBox from './components/StatisticBox';
 import Graph from './components/Graph';
-import {HomeProps } from './types';
+import {HomeProps } from './utils/types';
 import powaLogo from './assets/powaboxing.svg';
 import { useNavigate } from 'react-router-dom';
 import Loading from './components/Loading';

@@ -1,4 +1,4 @@
-import { JsonData, Statistics, AggregateStatistics, Punch, ScrapedData, ComboItem } from "../types";
+import { JsonData, Statistics, AggregateStatistics, Punch, ScrapedData, ComboItem } from "./types";
 
   export const calculateMode = (array: number[] | string[]): number | string => {
     const frequencyMap: { [key: string]: number } = {};

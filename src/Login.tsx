@@ -11,7 +11,7 @@ import punchsensors2 from './assets/punchsensors2.jpg';
 import punchsensors3 from './assets/punchsensors3.jpg';
 import powaLogo from './assets/powaboxing.svg';
 import { getStorage, ref, listAll, getBlob } from 'firebase/storage';
-import { LoginProps } from './types';
+import { LoginProps } from './utils/types';
 import Loading from './components/Loading';
 
 const app = initializeApp(firebaseConfig);

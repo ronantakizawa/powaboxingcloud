@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { calculateStatistics, getCombos, getPunchData } from './utils/datahandler';
-import { ComboItem, JsonData, HomeProps, Statistics} from './types';
+import { ComboItem, JsonData, HomeProps, Statistics} from './utils/types';
 import StatisticBox from './components/StatisticBox';
 import Graph from './components/Graph';
 import powaLogo from './assets/powaboxing.svg';

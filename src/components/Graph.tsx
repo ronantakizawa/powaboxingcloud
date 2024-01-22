@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
 import CustomTooltip from './CustomToolTip';
-import { GraphProps } from "../types";
+import { GraphProps } from "../utils/types";
 
 const Graph: React.FC<GraphProps> = ({ data, singleWorkout }) => {
   const [graphResizeIndexes, setGraphResizeIndexes] = useState({ speed: 2, acceleration: 2, force: 2 });

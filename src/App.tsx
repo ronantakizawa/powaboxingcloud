@@ -1,14 +1,14 @@
 // App.tsx
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './Login';
-import Home from './Home';
+import Login from './pages/Login';
+import Home from './pages/Home';
 import { User } from 'firebase/auth';
 import { getStorage, ref, getBlob, listAll } from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
 import firebaseConfig from '../firebase';
 import { JsonData } from './utils/types';
-import SingleWorkout from './SingleWorkout';
+import SingleWorkout from './pages/SingleWorkout';
 
 function App() {
   const app = initializeApp(firebaseConfig);

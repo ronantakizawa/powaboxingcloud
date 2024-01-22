@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { calculateStatistics, getCombos, getPunchData } from './utils/datahandler';
-import { ComboItem, JsonData, HomeProps, Statistics} from './utils/types';
-import StatisticBox from './components/StatisticBox';
-import Graph from './components/Graph';
+import { calculateStatistics, getCombos, getPunchData } from '../utils/datahandler';
+import { ComboItem, JsonData, HomeProps, Statistics} from '../utils/types';
+import StatisticBox from '../components/StatisticBox';
+import Graph from '../components/Graph';
 import { useNavigate } from 'react-router-dom';
-import Combos from './components/Combos';
-import Loading from './components/Loading';
+import Combos from '../components/Combos';
+import Loading from '../components/Loading';
 import { useLocation } from 'react-router-dom';
-import { handleSignOut } from './utils/handlesignout';
-import Title from './components/Title';
-import Sidebar from './components/Sidebar';
+import { handleSignOut } from '../utils/handlesignout';
+import Title from '../components/Title';
+import Sidebar from '../components/Sidebar';
 
 
 const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {

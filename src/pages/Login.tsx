@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, User } from 'firebase/auth';
-import firebaseConfig from "../firebase";
+import firebaseConfig from "../../firebase";
 import { useNavigate } from 'react-router-dom';
-import image1 from './assets/image1.png';
-import image2 from './assets/image2.png';
-import image3 from './assets/image3.png';
-import punchsensors1 from './assets/punchsensors1.jpg';
-import punchsensors2 from './assets/punchsensors2.jpg';
-import punchsensors3 from './assets/punchsensors3.jpg';
-import powaLogo from './assets/powaboxing.svg';
+import image1 from '../assets/image1.png';
+import image2 from '../assets/image2.png';
+import image3 from '../assets/image3.png';
+import punchsensors1 from '../assets/punchsensors1.jpg';
+import punchsensors2 from '../assets/punchsensors2.jpg';
+import punchsensors3 from '../assets/punchsensors3.jpg';
+import powaLogo from '../assets/powaboxing.svg';
 import { getStorage, ref, listAll, getBlob } from 'firebase/storage';
-import { LoginProps } from './utils/types';
-import Loading from './components/Loading';
+import { LoginProps } from '../utils/types';
+import Loading from '../components/Loading';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -108,7 +108,6 @@ const Login: React.FC<LoginProps> = ({ onUserLogin }) => {
             {loginError && <p className="text-red-500">Failed login. Make sure you have a connected account.</p>}
           </>
       </div>
-      <div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
         <img src={image1} alt="Feature demonstration 1" className="shadow-lg rounded max-w-full h-auto align-middle border-none" />
         <img src={image3} alt="Feature demonstration 2" className="shadow-lg rounded max-w-full h-auto align-middle border-none" />
@@ -120,11 +119,10 @@ const Login: React.FC<LoginProps> = ({ onUserLogin }) => {
     <h1 className="text-2xl font-bold mt-15 text-center">Punch Sensors?</h1>
     <h1 className='text-2xl font-bold '>Get them &nbsp; 
       <a href="https://powaboxing.com/" className="underline">HERE</a></h1>
-    <div className='flex flex-col sm:flex-row space-x-0 sm:space-x-10 mt-10 mb-20'>
+    <div className='flex flex-col sm:flex-row space-x-0 sm:space-x-10 mt-10 mb-20 item'>
       <img src={punchsensors1} className=' sm:h-40'/>
       <img src={punchsensors3} className='sm:h-40'/>
       <img src={punchsensors2} className=' sm:h-40'/>
-    </div>
     </div>
       <footer className='mb-5 mt-5 text-sm'>© 2024, POWA Boxing. </footer>
       

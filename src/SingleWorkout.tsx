@@ -9,6 +9,7 @@ import Combos from './components/Combos';
 import Loading from './components/Loading';
 import { useLocation } from 'react-router-dom';
 import { handleSignOut } from './utils/handlesignout';
+import Title from './components/Title';
 
 
 const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
@@ -77,21 +78,7 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
 
   return (
     <div className="bg-black">
-      <div className="flex items-center justify-start w-full">
-        <button onClick={()=> setIsSidebarOpen(!isSidebarOpen)}>
-          <p className='text-4xl mb-3 ml-14'>&#9776;</p>
-        </button>
-
-        <div className="flex-grow"></div>
-
-        <div className="flex items-center justify-center mr-10">
-          <h1 className="text-2xl font-bold text-center">POWA Analytics</h1>
-          <img src={powaLogo} alt="POWA logo" className="w-16 h-16 ml-2" />
-        </div>
-
-        <div className="flex-grow"></div>
-      </div>
-
+      <Title isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       <div className={`w-60 absolute top-0 left-0 z-50 h-full bg-orange-500 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
     <div className="flex flex-col items-start justify-between h-full p-4">
       <div className="flex w-full">

@@ -98,3 +98,8 @@ export interface SingleWorkoutProps {
 export interface LoginProps {
   onUserLogin: (user: User) => void;
 }
+
+export interface TitleProps {
+  isSidebarOpen: boolean;
+  setIsSidebarOpen: (isOpen: boolean) => void;
+}

@@ -5,9 +5,9 @@ import StatisticBox from './components/StatisticBox';
 import Graph from './components/Graph';
 import {HomeProps } from './types';
 import powaLogo from './assets/powaboxing.svg';
-import { getAuth, signOut } from '@firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import Loading from './components/Loading';
+import { handleSignOut } from './utils/handlesignout';
 
 const Home: React.FC<HomeProps> = ({ workouts }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -34,22 +34,7 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
   }, [isSidebarOpen, workouts]);
 
 
-  const handleSignOut = async () => {
-    const confirmSignOut = window.confirm("Are you sure you want to sign out?");
-
-    if (confirmSignOut) {
-        const auth = getAuth();
-        try {
-            await signOut(auth);
-            console.log('User signed out successfully');
-            navigate('/');
-        } catch (error) {
-            console.error('Error signing out', error);
-        }
-    } else {
-        console.log('Sign out cancelled');
-    }
-};
+  const handleLogOut = () => handleSignOut(navigate); 
   
   const processJsonDataMultiple = (jsonDataArray: JsonData[]) => {
     const statistics = calculateAggregateStatistics(jsonDataArray);
@@ -100,7 +85,7 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
       <nav className="flex flex-col w-full font-bold h-full -mt-8"> 
         <button onClick={() => {navigate('/home');}} className="ml-5 text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Home</button>
         <button onClick={() => {navigate('/singleworkout', { state: { avgstats: stats } }); setIsSidebarOpen(!isSidebarOpen)}} className="ml-5 text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Single Workouts</button>
-        <button onClick={() => {handleSignOut();}} className="ml-5 text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Sign Out</button>
+        <button onClick={() => {handleLogOut();}} className="ml-5 text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Sign Out</button>
       </nav>
     </div>
 </div>

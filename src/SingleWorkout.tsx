@@ -97,6 +97,7 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
             handleLogout={handleLogout}
       />
 </div>
+<div>
     <div className='flex justify-center mb-3'>
     <button
                 onClick={handlePreviousWorkout}
@@ -117,6 +118,7 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
 
               <div className='mb-5 flex text-sm justify-center -my-1'>
                 <p>You have {workouts.length} workouts</p>
+              </div>
               </div>
             <div className='bg-black'>
                 {stats && (

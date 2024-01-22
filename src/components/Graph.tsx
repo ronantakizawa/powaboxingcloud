@@ -4,7 +4,6 @@ import CustomTooltip from './CustomToolTip';
 import { GraphProps } from "../types";
 
 const Graph: React.FC<GraphProps> = ({ data, singleWorkout }) => {
-  // Combine graph resize indexes into a single state object
   const [graphResizeIndexes, setGraphResizeIndexes] = useState({ speed: 2, acceleration: 2, force: 2 });
   const [chartWidthMultiplier, setChartWidthMultiplier] = useState(150);
 

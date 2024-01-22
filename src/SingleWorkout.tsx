@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { calculateStatistics, getCombos, getPunchData } from './datahandler';
+import { calculateStatistics, getCombos, getPunchData } from './utils/datahandler';
 import { ComboItem, JsonData, HomeProps, Statistics} from './types';
 import StatisticBox from './components/StatisticBox';
 import Graph from './components/Graph';

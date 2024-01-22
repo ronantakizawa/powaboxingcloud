@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {  calculateAggregateStatistics } from './datahandler';
+import {  calculateAggregateStatistics } from './utils/datahandler';
 import { JsonData, Statistics} from './types';
 import StatisticBox from './components/StatisticBox';
 import Graph from './components/Graph';

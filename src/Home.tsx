@@ -57,7 +57,14 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
 
   return (
     <div className="bg-black">
-    <Title isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+      <div className="pt-10">
+        {isLoading ? (
+          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black">
+            <Loading />
+          </div>
+        ) : (
+          <div className="animate-fade-in">
+            <Title isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
 <div className={`w-60 absolute top-0 left-0 z-50 min-h-screen bg-orange-500 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
     <div className="flex flex-col items-start justify-between h-full p-4">
       <div className="flex w-full">
@@ -77,13 +84,6 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
       </nav>
     </div>
 </div>
-      <div className="pt-10">
-        {isLoading ? (
-          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black">
-            <Loading />
-          </div>
-        ) : (
-          <div className="animate-fade-in">
             {stats && (
               <>
                 <StatisticBox stats={{

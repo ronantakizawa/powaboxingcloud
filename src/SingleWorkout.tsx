@@ -3,13 +3,13 @@ import { calculateStatistics, getCombos, getPunchData } from './utils/datahandle
 import { ComboItem, JsonData, HomeProps, Statistics} from './utils/types';
 import StatisticBox from './components/StatisticBox';
 import Graph from './components/Graph';
-import powaLogo from './assets/powaboxing.svg';
 import { useNavigate } from 'react-router-dom';
 import Combos from './components/Combos';
 import Loading from './components/Loading';
 import { useLocation } from 'react-router-dom';
 import { handleSignOut } from './utils/handlesignout';
 import Title from './components/Title';
+import Sidebar from './components/Sidebar';
 
 
 const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
@@ -22,6 +22,10 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
   const location = useLocation();
   const { avgstats } = location.state;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const navigateHome = () => navigate('/home');
+  const navigateSingleWorkout = () => navigate('/singleworkout', { state: { avgstats: avgstats } });
+  const handleLogout = () => handleSignOut(navigate); 
 
   useEffect(() => {
     const body = document.body;
@@ -46,8 +50,6 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
     };
   }, [isSidebarOpen, workouts, currentWorkoutIndex]); 
 
-
-  const handleLogOut = () => handleSignOut(navigate); 
 
 
   const handleNextWorkout = () => {
@@ -87,23 +89,13 @@ const SingleWorkouts: React.FC<HomeProps> = ({ workouts}) => {
     <>
     <Title isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       <div className={`w-60 absolute top-0 left-0 z-50 h-full bg-orange-500 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-    <div className="flex flex-col items-start justify-between h-full p-4">
-      <div className="flex w-full">
-        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-white text-xl font-bold mb-10">
-          &#10005; 
-        </button>
-        <div className="flex items-center justify-center mb-10 ml-5">
-        <h1 className="text-l font-bold text-center">POWA Analytics</h1>
-        <img src={powaLogo} alt="POWA logo" className="w-8 h-8 ml-2" />
-        </div>
-
-      </div>
-      <nav className="flex flex-col w-full font-bold h-full -mt-8"> 
-        <button onClick={() => {navigate('/home');}} className="ml-5  text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Home</button>
-        <button onClick={() => {navigate('/singleworkout', { state: { avgstats: avgstats } }); setIsSidebarOpen(!isSidebarOpen)}} className="ml-5  text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Single Workouts</button>
-        <button onClick={() => {handleLogOut(); }} className="ml-5 text-left py-2 px-4 hover:bg-orange-600 transition-colors duration-150">Sign Out</button>
-      </nav>
-    </div>
+      <Sidebar
+            isSidebarOpen={isSidebarOpen}
+            setIsSidebarOpen={setIsSidebarOpen}
+            navigateHome={navigateHome}
+            navigateSingleWorkout={navigateSingleWorkout}
+            handleLogout={handleLogout}
+      />
 </div>
     <div className='flex justify-center mb-3'>
     <button

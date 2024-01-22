@@ -103,3 +103,12 @@ export interface TitleProps {
   isSidebarOpen: boolean;
   setIsSidebarOpen: (isOpen: boolean) => void;
 }
+
+export interface SidebarProps {
+  isSidebarOpen: boolean;
+  setIsSidebarOpen: (isOpen: boolean) => void;
+  handleLogout: () => void;
+  navigateHome: () => void; 
+  navigateSingleWorkout: () => void;
+
+}
